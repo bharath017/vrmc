@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvoicePrint1" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="853eebd8-f23d-4bd4-ab89-7201433fc6ee">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="office"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="id" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[select i.*,s.*,po.tax_group from invoice_item i LEFT JOIN (product s,purchase_order po,invoice ii) 
+ON i.sale_pro_id=s.product_id and ii.id=i.id and po.customer_id=ii.cust_id  
+where po.order_id=(select max(order_id) from purchase_order where customer_id=ii.cust_id) and  i.id= $P{id}]]>
+	</queryString>
+	<field name="inv_item_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="inv_item_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice_item"/>
+	</field>
+	<field name="id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice_item"/>
+	</field>
+	<field name="sale_pro_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="sale_pro_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice_item"/>
+	</field>
+	<field name="item_quantity" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="item_quantity"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice_item"/>
+	</field>
+	<field name="item_price" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="item_price"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice_item"/>
+	</field>
+	<field name="gst_percent" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.label" value="gst_percent"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice_item"/>
+	</field>
+	<field name="gross_amount" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="gross_amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice_item"/>
+	</field>
+	<field name="tax_amount" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="tax_amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice_item"/>
+	</field>
+	<field name="net_amount" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="net_amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice_item"/>
+	</field>
+	<field name="timestamp" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="timestamp"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice_item"/>
+	</field>
+	<field name="product_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="product_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="product"/>
+	</field>
+	<field name="product_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="product_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="product"/>
+	</field>
+	<field name="product_cost" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="product_cost"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="product"/>
+	</field>
+	<field name="gst_percentage" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.label" value="gst_percentage"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="product"/>
+	</field>
+	<field name="pro_uom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pro_uom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="product"/>
+	</field>
+	<field name="product_status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="product_status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="product"/>
+	</field>
+	<field name="hsn_code" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="hsn_code"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="product"/>
+	</field>
+	<field name="tax_group" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="tax_group"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_order"/>
+	</field>
+	<variable name="total_gross" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{gross_amount}]]></variableExpression>
+	</variable>
+	<variable name="total_tax" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{tax_amount}]]></variableExpression>
+	</variable>
+	<variable name="total_net" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{net_amount}]]></variableExpression>
+	</variable>
+	<group name="Group1">
+		<groupFooter>
+			<band height="140">
+				<staticText>
+					<reportElement x="396" y="15" width="92" height="20" forecolor="#0000CC" uuid="5bbb89c3-528a-4b49-9356-be35cd4d0939"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Black" size="11"/>
+					</textElement>
+					<text><![CDATA[SUB TOTAL : ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="397" y="74" width="103" height="20" forecolor="#0000CC" uuid="be05185e-94fe-46b6-9799-7b1029b1649b"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Black" size="11"/>
+					</textElement>
+					<text><![CDATA[TOTAL TAX : ]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="488" y="15" width="102" height="20" forecolor="#0000CC" uuid="f54f30c0-e8c7-424b-99ec-ac056ef63945"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Black" size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{total_gross}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="488" y="74" width="102" height="20" forecolor="#0000CC" uuid="29a11641-c69e-4b97-a382-802ebccecffc"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Black" size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{total_tax}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement x="6" y="98" width="554" height="31" backcolor="#000099" uuid="c5a70519-6d65-4ded-8f13-068c5514b1a2"/>
+					<graphicElement>
+						<pen lineWidth="0.0"/>
+					</graphicElement>
+				</rectangle>
+				<staticText>
+					<reportElement x="384" y="103" width="102" height="20" forecolor="#FFFFFF" uuid="afb15208-06a4-4b4b-bfbd-be3eb4e3460b"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Black" size="11"/>
+					</textElement>
+					<text><![CDATA[NET AMOUNT : ]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="488" y="103" width="102" height="20" forecolor="#FFFFFF" uuid="f057e54c-d154-41c2-9362-3ca74b3fe3ec"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Black" size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{total_net}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="491" y="35" width="102" height="20" forecolor="#0000CC" uuid="2d9f6a1d-04a4-4373-9ca0-4515907f69a1"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Black" size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($F{tax_group}.equals("IGST"))?  new DecimalFormat("##.##").format($V{total_tax}):  new DecimalFormat("##.##").format($V{total_tax}/2)]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="492" y="53" width="102" height="20" forecolor="#0000CC" uuid="de7bf147-236f-48a8-be02-f088809e7ef6"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Black" size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($F{tax_group}.equals("IGST"))?  "":  new DecimalFormat("##.##").format($V{total_tax}/2)]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="400" y="35" width="102" height="20" forecolor="#0000CC" uuid="923ec720-a943-473e-afcd-ec6bc07e380d"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Black" size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($F{tax_group}.equals("IGST"))?"IGST :":"CGST :"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="400" y="55" width="102" height="20" forecolor="#0000CC" uuid="842b1cef-ba07-459b-b2c1-de9e5e9ac823"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Black" size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($F{tax_group}.equals("IGST"))?"":"SGST :"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="45" splitType="Stretch">
+			<rectangle>
+				<reportElement x="1" y="0" width="169" height="40" backcolor="#F7F7F7" uuid="1f7025d6-afae-4850-96b1-c788c291f45f"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="247" y="0" width="73" height="40" backcolor="#F7F7F7" uuid="17929614-c9eb-4509-8049-8f626c6eb672"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="320" y="0" width="100" height="40" backcolor="#F7F7F7" uuid="050aeb2d-6559-4432-b43b-16b53a2b2e3d"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="417" y="0" width="137" height="40" backcolor="#F7F7F7" uuid="ee0f8b9a-932e-4d03-a753-e6738d726355"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="18" y="12" width="152" height="33" uuid="c708aa45-eb4d-493c-87c4-b71cb53d58b0"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{product_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="282" y="12" width="43" height="15" uuid="66e462d9-8a85-4fe5-b7da-29200b1668d4"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{item_quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="10" width="94" height="15" uuid="dcfde38e-0236-4aa2-a55d-27e555bf47fc"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gross_amount}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="170" y="0" width="77" height="40" backcolor="#F7F7F7" uuid="cf831fcb-2398-4425-a515-423772d0194b"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="183" y="14" width="70" height="13" uuid="5992b70b-dc85-4ffb-b792-75e1489735eb"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hsn_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="349" y="13" width="75" height="13" uuid="ab33a6f8-77c5-4168-987f-37bd9144ade9"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gross_amount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

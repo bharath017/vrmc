@@ -1,0 +1,4 @@
+SELECT 
+    DATE_ADD(DATE_ADD(LAST_DAY(curdate()),
+            INTERVAL 1 DAY),
+        INTERVAL - 1 MONTH) AS first_day,LAST_DAY(curdate()) as last_date,date_add(curdate(), interval -WEEKDAY(curdate()) day) FirstDayOfWeek, date_add(date_add(curdate(), interval -WEEKDAY(curdate())-1 day), interval 7 day) LastDayOfWeek,date_add(date_add(curdate(), interval -WEEKDAY(curdate())-1 day), interval 14 day) Lasprevious

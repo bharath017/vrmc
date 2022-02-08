@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PrintCubeTest2" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="20" rightMargin="0" topMargin="0" bottomMargin="0" uuid="75827cc1-8eb0-477b-86bd-f6e00cd7dded">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="buildrmc new"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="tst_id" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select c.*,cu.dimension, round(((maxld1/22.5)+(maxld2/22.5)+(maxld3/22.5))/3,2) as avg,
+round(case when (cu.dimension = 150) THEN (c.mass1/0.003375) ELSE (c.mass1/0.001)  END,0) as m_one,
+round(case when (cu.dimension = 150) THEN (c.mass2/0.003375) ELSE (c.mass2/0.001)  END,0) as m_two,
+round(case when (cu.dimension = 150) THEN (c.mass3/0.003375) ELSE (c.mass3/0.001)  END,0) as m_three,
+truncate(case when (cu.dimension = 150) THEN (c.maxld1/22.5) ELSE (c.maxld1/10)  END,2) as a1,
+truncate(case when (cu.dimension = 150) THEN (c.maxld2/22.5) ELSE (c.maxld2/10)  END,2) as a2,
+truncate(case when (cu.dimension = 150) THEN (c.maxld3/22.5) ELSE (c.maxld3/10)  END,2) as a3
+from cube_test_item c,cube_test cu where c.tst_id=cu.tst_id and c. tst_id= $P{tst_id}]]>
+	</queryString>
+	<field name="tst_item_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="tst_item_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cube_test_item"/>
+	</field>
+	<field name="mass1" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="mass1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cube_test_item"/>
+	</field>
+	<field name="mass2" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="mass2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cube_test_item"/>
+	</field>
+	<field name="mass3" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="mass3"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cube_test_item"/>
+	</field>
+	<field name="maxld1" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="maxld1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cube_test_item"/>
+	</field>
+	<field name="maxld2" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="maxld2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cube_test_item"/>
+	</field>
+	<field name="maxld3" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="maxld3"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cube_test_item"/>
+	</field>
+	<field name="tst_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="tst_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cube_test_item"/>
+	</field>
+	<field name="cube_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="cube_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cube_test_item"/>
+	</field>
+	<field name="dimension" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="dimension"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cube_test"/>
+	</field>
+	<field name="avg" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="avg"/>
+	</field>
+	<field name="m_one" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="m_one"/>
+	</field>
+	<field name="m_two" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="m_two"/>
+	</field>
+	<field name="m_three" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="m_three"/>
+	</field>
+	<field name="a1" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="a1"/>
+	</field>
+	<field name="a2" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="a2"/>
+	</field>
+	<field name="a3" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="a3"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="101" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-20" y="0" width="56" height="32" uuid="ef3c9f68-af45-4ac1-8210-c2627ae105dd"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="97" y="0" width="81" height="32" uuid="9fa47c6c-fc3e-4faf-abca-6e1aa0d150d9"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="259" y="0" width="81" height="32" uuid="242836fa-959f-4135-883a-3eff068be824"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="340" y="0" width="100" height="32" uuid="51e3f4c2-4e73-41b6-b377-b76b02387909"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="438" y="0" width="96" height="96" uuid="ba743bfc-0d6e-459d-9898-caffae7daf97"/>
+			</rectangle>
+			<textField>
+				<reportElement x="-8" y="9" width="50" height="20" uuid="5cb462db-d780-432c-9122-51002d75a15a"/>
+				<textFieldExpression><![CDATA[($V{REPORT_COUNT}==1)?1:(($V{REPORT_COUNT}-1)*3)+1]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="-20" y="32" width="56" height="32" uuid="c73c2c5a-8b3c-428f-9157-6edccb857a4f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="97" y="32" width="81" height="32" uuid="d51b3c46-8acf-46c9-ba6b-ad79c849eda2"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="259" y="32" width="81" height="32" uuid="fdc11673-e74d-4798-ada1-b356c26dbe82"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="340" y="32" width="98" height="32" uuid="1d9393d3-df72-4b8d-91c6-ba5f28651aac"/>
+			</rectangle>
+			<textField>
+				<reportElement x="-8" y="41" width="50" height="20" uuid="8c64c427-273c-415d-8b50-ef6d408dd4fe"/>
+				<textFieldExpression><![CDATA[($V{REPORT_COUNT}==1)?2:(($V{REPORT_COUNT}-1)*3)+2]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="-20" y="64" width="56" height="32" uuid="bcf87fed-e1b7-4d8e-84ab-173758d63aaf"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="97" y="64" width="81" height="32" uuid="cb3d3d20-5319-4e79-a328-847095ddd9ec"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="259" y="64" width="81" height="32" uuid="6e722661-a665-4885-84f3-e34809964fc6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="340" y="64" width="98" height="32" uuid="c4521eda-66eb-4f08-986f-62b1d10fbfaf"/>
+			</rectangle>
+			<textField>
+				<reportElement x="-8" y="73" width="50" height="20" uuid="f659aae8-52f5-4209-82cc-89dd2e7e63f4"/>
+				<textFieldExpression><![CDATA[($V{REPORT_COUNT}==1)?3:(($V{REPORT_COUNT}-1)*3)+3]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="9" width="64" height="20" uuid="df1f7931-b476-4ec0-bc8f-b7e4414d2477"/>
+				<textFieldExpression><![CDATA[new DecimalFormat("#.000").format($F{mass1})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="41" width="64" height="20" uuid="e9520802-1d2d-4c77-b2d7-f5af42e8fabb"/>
+				<textFieldExpression><![CDATA[new DecimalFormat("#.000").format($F{mass2})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="73" width="64" height="20" uuid="d7407727-b793-4056-9e72-2d82297bf493"/>
+				<textFieldExpression><![CDATA[new DecimalFormat("#.000").format($F{mass3})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="273" y="9" width="64" height="20" uuid="04bd6504-9663-40f7-8f2e-770837e9291f"/>
+				<textFieldExpression><![CDATA[$F{maxld1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="273" y="41" width="64" height="20" uuid="6a2ba474-a83a-428a-8ef3-4478376e292c"/>
+				<textFieldExpression><![CDATA[$F{maxld2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="273" y="73" width="64" height="20" uuid="9f229fbf-f749-455e-950b-653568d62cbb"/>
+				<textFieldExpression><![CDATA[$F{maxld3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="367" y="73" width="64" height="20" uuid="b46da70a-9dcf-4336-b1af-f4d67e54136b"/>
+				<textFieldExpression><![CDATA[$F{a3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="367" y="41" width="64" height="20" uuid="7eddaf17-762c-4a42-b950-7d1e51669ad3"/>
+				<textFieldExpression><![CDATA[$F{a2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="367" y="9" width="64" height="20" uuid="1700f7fb-3c89-435e-bae0-c41872fc678c"/>
+				<textFieldExpression><![CDATA[$F{a1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="451" y="34" width="70" height="30" uuid="95df2fe7-f123-48ae-839d-6d4328c3517a"/>
+				<textFieldExpression><![CDATA[new DecimalFormat("#.00").format($F{avg})]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="36" y="0" width="61" height="96" uuid="84116bbd-d25d-4468-88d7-bdbb7e826cea"/>
+			</rectangle>
+			<textField>
+				<reportElement x="46" y="38" width="39" height="20" uuid="5744d3c1-9868-42ad-87d5-3c387cb5f546"/>
+				<textFieldExpression><![CDATA[$F{cube_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="192" y="41" width="80" height="20" uuid="b354efa4-0ec3-46e9-ab77-a3030290a928"/>
+				<textFieldExpression><![CDATA[$F{m_two}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="192" y="9" width="80" height="20" uuid="adbf870f-38b5-4307-ac96-0640e89c2705"/>
+				<textFieldExpression><![CDATA[$F{m_one}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="178" y="0" width="83" height="32" uuid="ec39ecf7-6c99-48c9-86e1-e8dfe5fe434f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="178" y="32" width="83" height="32" uuid="611db122-c027-467d-a811-df5ab0cced54"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="178" y="64" width="83" height="32" uuid="f87a76a0-c6b2-4b67-896d-7e5577afc731"/>
+			</rectangle>
+			<textField>
+				<reportElement x="194" y="73" width="80" height="20" uuid="bf5ae5b5-f0f7-4cdf-9e1b-1a4b78f90eb7"/>
+				<textFieldExpression><![CDATA[$F{m_three}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="194" y="40" width="80" height="20" uuid="9abf8ef2-41fd-4b3d-aa93-c10c8650e337"/>
+				<textFieldExpression><![CDATA[$F{m_two}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="193" y="8" width="80" height="20" uuid="d122d651-c579-4847-aee6-4a0971ce5a4f"/>
+				<textFieldExpression><![CDATA[$F{m_one}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="71">
+			<rectangle>
+				<reportElement x="-20" y="-5" width="554" height="65" uuid="7f5f7212-85eb-4cb6-941f-3797791f0863"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="380" y="40" width="154" height="19" uuid="ef646e64-5f46-4266-a344-0dd2eb63c422"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<text><![CDATA[QA/QC INCHARGE
+   ]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="customer_quotation" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c1b5214-2a78-45e7-99d1-57478a73b8a1">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<parameter name="quotation_id" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT c.*,DATE_FORMAT(c.quotation_date,'%d/%m/%Y') as real_quotation_date,m.mp_name,m.mp_phone,m.mp_email,m.mp_address FROM `customer_quotation` c,marketing_person m WHERE m.mp_id=c.mp_id and quotation_id= $P{quotation_id}]]>
+	</queryString>
+	<field name="quotation_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="quotation_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer_quotation"/>
+	</field>
+	<field name="mp_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="mp_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer_quotation"/>
+	</field>
+	<field name="customer_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="customer_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer_quotation"/>
+	</field>
+	<field name="quotation_date" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="quotation_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer_quotation"/>
+	</field>
+	<field name="pump_charge" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="pump_charge"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer_quotation"/>
+	</field>
+	<field name="pump_quantity" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="pump_quantity"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer_quotation"/>
+	</field>
+	<field name="site_address" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="site_address"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer_quotation"/>
+	</field>
+	<field name="customer_phone" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="customer_phone"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer_quotation"/>
+	</field>
+	<field name="comment" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="comment"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer_quotation"/>
+	</field>
+	<field name="customer_email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="customer_email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer_quotation"/>
+	</field>
+	<field name="status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer_quotation"/>
+	</field>
+	<field name="customer_gstin" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="customer_gstin"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer_quotation"/>
+	</field>
+	<field name="real_quotation_date" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="real_quotation_date"/>
+	</field>
+	<field name="mp_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="mp_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="marketing_person"/>
+	</field>
+	<field name="mp_phone" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="mp_phone"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="marketing_person"/>
+	</field>
+	<field name="mp_email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="mp_email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="marketing_person"/>
+	</field>
+	<field name="mp_address" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="mp_address"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="marketing_person"/>
+	</field>
+	<group name="Group1">
+		<groupHeader>
+			<band height="26">
+				<staticText>
+					<reportElement x="246" y="5" width="94" height="21" uuid="8f693701-6860-4ecd-9c0f-4bb5a06d6225"/>
+					<textElement>
+						<font fontName="Arial Black" size="12"/>
+					</textElement>
+					<text><![CDATA[Quotation]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Group2">
+		<groupHeader>
+			<band height="29">
+				<textField>
+					<reportElement x="410" y="9" width="139" height="20" uuid="ce2108d6-b182-4782-a39a-c3d2d720943e"/>
+					<textElement>
+						<font fontName="Arial Black" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Date : "+$F{real_quotation_date}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="3" y="9" width="336" height="20" uuid="d42a8b1a-07fc-41a7-93f5-c18736027d95"/>
+					<textElement>
+						<font fontName="Arial Black" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA["QT NO : SMLP/RMC/ "+$F{quotation_id}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Group3">
+		<groupHeader>
+			<band height="98">
+				<staticText>
+					<reportElement x="3" y="12" width="58" height="20" uuid="57e81efd-f0e0-4dcc-9840-fc41aae035ed"/>
+					<textElement>
+						<font fontName="Arial Black" size="11"/>
+					</textElement>
+					<text><![CDATA[To,]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="24" y="32" width="286" height="20" uuid="2cc6e93e-53e3-43d3-85b7-cf9650d4bf8e"/>
+					<textElement>
+						<font fontName="Arial Black" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{customer_name}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="24" y="52" width="286" height="46" uuid="0a4a5250-76fb-46b4-aaf8-af383bc5c515"/>
+					<textElement>
+						<font size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{site_address}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Group4">
+		<groupHeader>
+			<band height="33">
+				<textField>
+					<reportElement x="61" y="2" width="498" height="31" uuid="11e66606-6a6c-49e1-bef0-ceb7d9af8729"/>
+					<textElement>
+						<font size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Quotation for supplying Ready-mix Concrete to your Project at " + $F{site_address}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1" y="2" width="58" height="20" uuid="7e94ca08-b71e-4c11-8769-c6683d082cd4"/>
+					<textElement>
+						<font fontName="Arial Black" size="11"/>
+					</textElement>
+					<text><![CDATA[Subject : ]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Group5">
+		<groupHeader>
+			<band height="24">
+				<staticText>
+					<reportElement x="24" y="2" width="141" height="20" uuid="15aebe03-b432-470b-92bc-049bcba7ea64"/>
+					<textElement>
+						<font fontName="Arial Black" size="11"/>
+					</textElement>
+					<text><![CDATA[Respected Sir,]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Group6">
+		<groupHeader>
+			<band height="59">
+				<staticText>
+					<reportElement x="24" y="1" width="516" height="58" uuid="b7e7ee38-5fea-43b5-bf07-42f65637fa24"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[This is with  reference to your enquiry  regarding supply of Ready-mix concrete. We thank you  for showing interest in our products. We are pleased to make the following offer for the supply of READY MIX CONCRETE from our plant at Bangalore. ]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Group7">
+		<groupFooter>
+			<band height="152">
+				<staticText>
+					<reportElement x="32" y="69" width="318" height="20" uuid="19f26dec-e1da-4c99-8ed9-c156077775d4"/>
+					<textElement>
+						<font fontName="Arial Black" size="12"/>
+					</textElement>
+					<text><![CDATA[SMLP CONCRETE  PRIVATE LIMITED]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="30" y="1" width="160" height="18" uuid="f9d651e4-5136-423c-9c53-7790e7e72dd2"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Thanks and regards,]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group8"/>
+	<group name="Group9"/>
+	<group name="Group11">
+		<groupFooter>
+			<band height="99">
+				<staticText>
+					<reportElement x="36" y="14" width="503" height="36" uuid="de9a2b5a-ee6e-47e6-818a-154794bcfdf0"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Thank you  for your interest. 
+Looking forward to a long working relationship with you.]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group12">
+		<groupFooter>
+			<band height="65">
+				<staticText>
+					<reportElement x="36" y="3" width="503" height="57" uuid="4385791c-55e8-422f-b7fe-9822ba426063"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[• Since concrete is a perishable item, any unutilized concrete after the truck has left our premises would be chargeable to you. Vehicle should not be detained for more than one hour after reaching the site.]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group13">
+		<groupFooter>
+			<band height="59">
+				<staticText>
+					<reportElement x="36" y="3" width="503" height="56" uuid="c5279928-6fd2-40ac-a84b-521be6e1ee46"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[• However, we do not own any responsibility for damage to any equipment or injury or any loss to human on this account. Our scope is limited to supply of RMC and responsibility lies with the customer who had placed the order for the supply of RMC.]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group14">
+		<groupFooter>
+			<band height="43">
+				<staticText>
+					<reportElement x="36" y="3" width="503" height="40" uuid="f0bbf4ee-f2e2-44e0-ae06-99543ced4014"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[• For the RMC Supply, our responsibility is to send RMC material at site. Once the material has reached the site, the pouring of material can be done at your advice.]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group15">
+		<groupFooter>
+			<band height="85">
+				<staticText>
+					<reportElement x="36" y="3" width="503" height="82" uuid="6c3c2e00-ebc6-4b50-a238-543fce80b83e"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[• With respect to each delivery, the customer shall ensure that an authorized person is on site to: (a)sign the delivery docket (challan), (b)Acknowledge Receipt of each delivery, (c) Acknowledge that the mix- description set out on such delivery docket (challan) describes the concrete ordered by the customer. (d) Confirm the time of arrival of such vehicle on site and of completion of discharge.]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group16">
+		<groupFooter>
+			<band height="85">
+				<staticText>
+					<reportElement x="36" y="3" width="503" height="82" uuid="1ce17a97-448c-4e9c-b26b-46f86ebc3de0"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[• SMLP CONCRETE will not be able to supply during traffic restriction hours as fixed by Govt., from time to time. Incase you insist on supply during traffic restriction hours you, will have to provide us the permission from the Govt. to ply the trucks from our plant to your sites and incase of any expenses through fine/penalty charged by the traffic police, the same will be debited from your account.]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group17">
+		<groupFooter>
+			<band height="85">
+				<staticText>
+					<reportElement x="36" y="32" width="503" height="48" uuid="ab4fb0fd-a9a9-4406-8f47-d4fdd916a5a3"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[•We request you to give a prior notice of 2-3 days before your concrete requirement, to enable smooth execution of the operation. We shall accommodate your valued orders on shorter notice too, subject to availability of the requested time/date.]]></text>
+				</staticText>
+				<line>
+					<reportElement x="37" y="19" width="52" height="1" uuid="7486ce00-195f-40ca-aed9-28b18047364e"/>
+				</line>
+				<staticText>
+					<reportElement x="36" y="3" width="503" height="16" uuid="71b49db5-a911-4313-9002-91d5dfa70ec5"/>
+					<textElement>
+						<font fontName="Arial Black" size="11"/>
+					</textElement>
+					<text><![CDATA[Delivery : ]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group18">
+		<groupFooter>
+			<band height="204">
+				<staticText>
+					<reportElement x="50" y="93" width="489" height="20" uuid="9f66850a-f6f0-4834-b889-91af253571c7"/>
+					<textElement>
+						<font fontName="Arial Black" size="12"/>
+					</textElement>
+					<text><![CDATA[SMLP CONCRETE PRIVATE LIMITED]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="50" y="114" width="489" height="20" uuid="2e4ce659-09e9-43b6-831b-42bf39ee3269"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Bank- KARNATAKA BANK LIMITED]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="50" y="136" width="489" height="20" uuid="f7495cc1-6933-4a0c-8722-50056c2cd5a1"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Branch- YELAHANKA NEW TOWN	]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="50" y="157" width="489" height="20" uuid="9dd6b999-0261-46b4-a3eb-34cd037dc4ad"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[IFSC Code- KARB0000909]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="50" y="178" width="489" height="20" uuid="db7484f3-2323-485c-ac2d-93b85ce58af1"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[A/c No- 9097000600006801]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="36" y="3" width="503" height="20" uuid="81b3948b-f8a7-422e-9360-3e2299678d56"/>
+					<textElement>
+						<font fontName="Arial Black" size="11"/>
+					</textElement>
+					<text><![CDATA[Payment Terms : ]]></text>
+				</staticText>
+				<line>
+					<reportElement x="37" y="18" width="103" height="1" uuid="84bfb05a-f94b-4e81-b807-7d2388e845e6"/>
+				</line>
+				<line>
+					<reportElement x="51" y="83" width="103" height="1" uuid="a8d0fdbf-2aa4-4ceb-b5db-9346a600ec31"/>
+				</line>
+				<staticText>
+					<reportElement x="50" y="68" width="503" height="20" uuid="ccd999d7-89c0-407c-b370-ffd1dabdd221"/>
+					<textElement>
+						<font fontName="Arial Black" size="11"/>
+					</textElement>
+					<text><![CDATA[Account Details : ]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="36" y="26" width="498" height="31" uuid="d9e0ea3a-1035-498c-8e29-bf554080b147"/>
+					<textElement>
+						<font size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA["•  " +$F{comment}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group19">
+		<groupFooter>
+			<band height="271">
+				<staticText>
+					<reportElement x="36" y="75" width="503" height="36" uuid="46533c8f-6978-42be-a382-8519b1557aad"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[• Any statutory increase on present duties/levies/taxes by central/StateGovt.On raw materials would be charged to your A/c.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="36" y="111" width="503" height="36" uuid="8940f6f2-40bc-45b2-9c36-0a81342cc112"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[• This quotation is valid for 15 days from the date of submission of quotation and supersedes all previous quotation to the above project.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="36" y="147" width="503" height="38" uuid="f318e85a-0513-491f-a4d0-6570be3ab221"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[• Cube casted by our person & tested at our labs valid and SMLP CONCRETE will provide cube testing reports at 7 & 28 days respectively.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="34" y="2" width="503" height="20" uuid="4f0208b8-7be2-477c-8d43-62ec99c0d1af"/>
+					<textElement>
+						<font fontName="Arial Black" size="11"/>
+					</textElement>
+					<text><![CDATA[The terms and condition are as follows:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="36" y="186" width="503" height="46" uuid="dff04a55-cd53-4b4a-8286-ad88c50b2c39"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[• Prices for pumping and dumping are same. There is no discount for dumping. The Minimum Pumping quantity shall not be less than 25CUM otherwise Rs.5000/- pumping charges Extra.]]></text>
+				</staticText>
+				<line>
+					<reportElement x="36" y="17" width="236" height="1" uuid="411144bb-4a17-4751-a15a-d5f94b7bc3e7"/>
+				</line>
+				<staticText>
+					<reportElement x="42" y="27" width="503" height="20" uuid="13861042-3b23-486a-ae4d-bd29b48f0a08"/>
+					<textElement>
+						<font fontName="Arial Black" size="11"/>
+					</textElement>
+					<text><![CDATA[Price : ]]></text>
+				</staticText>
+				<line>
+					<reportElement x="42" y="40" width="38" height="1" uuid="ad406877-75f0-4ccd-b3c7-0065abe7a0e2"/>
+				</line>
+				<staticText>
+					<reportElement x="37" y="51" width="533" height="20" uuid="1fc55677-08be-4b4b-8079-ff62197baa91"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[• SMLP CONCRETE PRIVATE LIMITED,  GST No : 29ABBCS8318L1ZT]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="36" y="232" width="503" height="36" uuid="032b17c0-01b3-4a91-8bf3-2919cbee01a9"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[• The above Prices are Inclusive of @18% GST.]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group20"/>
+	<group name="Group10">
+		<groupHeader>
+			<band height="48">
+				<rectangle>
+					<reportElement x="47" y="0" width="71" height="48" uuid="2b9f5395-f6ee-4623-ab01-6524a1adcbe5"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="57" y="16" width="50" height="27" uuid="6d4ece8c-dfc4-40a5-a26c-851788f8abde"/>
+					<textElement>
+						<font fontName="Arial Black" size="11"/>
+					</textElement>
+					<text><![CDATA[SL NO.]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement x="118" y="0" width="128" height="48" uuid="5da10424-e343-49cb-aa10-379d14f05499"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="147" y="6" width="100" height="37" uuid="bfae1353-3d82-4008-97d2-375cb683bcf4"/>
+					<textElement>
+						<font fontName="Arial Black" size="11"/>
+					</textElement>
+					<text><![CDATA[ GRADE OF 
+CONCRETE]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement x="246" y="0" width="134" height="48" uuid="c5e88f67-fa5f-4840-9eea-c703133fbf70"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="260" y="6" width="111" height="38" uuid="1142309c-f0ce-47cf-bef4-424f29aad7f7"/>
+					<textElement>
+						<font fontName="Arial Black" size="11"/>
+					</textElement>
+					<text><![CDATA[PRICE PER CUM
+        ( OPC )
+]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement x="380" y="0" width="134" height="48" uuid="3d129c89-4538-4a24-b385-bd98196366bb"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="392" y="5" width="111" height="38" uuid="0beb4d06-c8f6-410e-b5f9-148f15810a82"/>
+					<textElement>
+						<font fontName="Arial Black" size="11"/>
+					</textElement>
+					<text><![CDATA[PRICE PER CUM
+ ( OPC + GGBS )
+]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="3"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="86" splitType="Stretch">
+			<image>
+				<reportElement x="209" y="17" width="153" height="63" uuid="f12706c7-4776-4370-b488-c62e1338a000"/>
+				<imageExpression><![CDATA["smlp.PNG"]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<subreport>
+				<reportElement x="46" y="0" width="468" height="30" uuid="c5b9bbbf-aadc-4786-883a-32109bdddd88"/>
+				<subreportParameter name="quotation_id">
+					<subreportParameterExpression><![CDATA[$F{quotation_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["customer_quotation1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="62" splitType="Stretch">
+			<staticText>
+				<reportElement x="68" y="6" width="561" height="20" uuid="1153cb62-54fd-41d5-9068-4cf4c2b97714"/>
+				<textElement>
+					<font fontName="Arial Black" size="8"/>
+				</textElement>
+				<text><![CDATA[Plant : Sy. No - 125, Huttanahalli Village, Jala hobli, Bangalore North, Bangalore - 562157]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="145" y="30" width="561" height="20" uuid="70ef4541-f84f-4624-8128-0c2936a14181"/>
+				<textElement>
+					<font fontName="Arial Black" size="8"/>
+				</textElement>
+				<text><![CDATA[Phone : 9071533345 email: smlpconcrete@gmail.com
+]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

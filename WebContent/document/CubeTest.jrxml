@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CubeTest" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ee85f88c-5d3f-4e72-be6e-63c3ae094d8c">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="BUILD RMC ADAPTER"/>
+	<parameter name="tst_id" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[select c.*,cu.customer_name,s.site_address ,
+DATE_FORMAT(c.supply_date,'%d/%m/%Y') as realdate,DATE_FORMAT(supply_date+interval c.testing_days day,'%d/%m/%Y')  as  testing
+from cube_test c LEFT JOIN (customer cu,site_detail s)
+ON c.customer_id=cu.customer_id
+and c.site_id=s.site_id 
+where c.tst_id= $P{tst_id}]]>
+	</queryString>
+	<field name="tst_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="tst_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cube_test"/>
+	</field>
+	<field name="customer_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="customer_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cube_test"/>
+	</field>
+	<field name="site_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="site_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cube_test"/>
+	</field>
+	<field name="product_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="product_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cube_test"/>
+	</field>
+	<field name="supply_date" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="supply_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cube_test"/>
+	</field>
+	<field name="testing_days" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="testing_days"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cube_test"/>
+	</field>
+	<field name="dimension" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="dimension"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cube_test"/>
+	</field>
+	<field name="cube_status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="cube_status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cube_test"/>
+	</field>
+	<field name="plant_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="plant_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cube_test"/>
+	</field>
+	<field name="test_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="test_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cube_test"/>
+	</field>
+	<field name="customer_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="customer_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+	</field>
+	<field name="site_address" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="site_address"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="site_detail"/>
+	</field>
+	<field name="realdate" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="realdate"/>
+	</field>
+	<field name="testing" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="testing"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="391" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="1" height="79" uuid="abbd917d-32be-4e22-9542-f468dca1a20e"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="554" height="1" uuid="0944cebf-a801-47b9-a539-f203743abe25"/>
+			</line>
+			<line>
+				<reportElement x="553" y="1" width="1" height="79" uuid="56c7319d-19d7-470b-bfe9-57a7367eabd3"/>
+			</line>
+			<staticText>
+				<reportElement x="161" y="101" width="340" height="30" uuid="1c437d85-3086-4bdb-b033-4a7bcd413909"/>
+				<textElement>
+					<font fontName="SansSerif" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[CONCRETE CUBE TEST REPORT ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="146" y="119" width="255" height="1" uuid="78e38b58-8209-4aad-8981-c89b202b605c"/>
+			</line>
+			<line>
+				<reportElement x="0" y="80" width="1" height="278" uuid="da2aada5-94ad-4716-9d96-b61e626a0ca6"/>
+			</line>
+			<line>
+				<reportElement x="553" y="81" width="1" height="277" uuid="8c1c02da-f251-4f38-99a8-264cca1e1d9b"/>
+			</line>
+			<staticText>
+				<reportElement x="20" y="140" width="130" height="17" uuid="e46186b4-6c88-4f1c-9d92-dd99ae874c89"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<text><![CDATA[Customer Name ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="150" y="142" width="390" height="17" uuid="a3a46471-eca1-4050-b422-68bcb1bb800b"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[":     "+$F{customer_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="169" width="390" height="17" uuid="df308d57-d4c8-4831-83cd-81a29bee6f56"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[":     "+$F{site_address}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="167" width="130" height="17" uuid="debf2f9f-197a-4da3-b082-110c908da5a4"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<text><![CDATA[Site ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="193" width="130" height="17" uuid="34b58755-34c8-4d37-b4c4-9d58ec77c79d"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<text><![CDATA[Grade Of Concrete]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="151" y="195" width="390" height="17" uuid="78b17a0d-eaf8-4f29-92a0-9cbfea146f0d"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[":     "+$F{product_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="218" width="130" height="17" uuid="946add7a-d1d4-456a-b80f-16f400286b4b"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<text><![CDATA[Date Of Casting]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="151" y="220" width="390" height="17" uuid="54aaa5e9-f268-47da-8f10-ce7ddb96874b"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[":     "+$F{realdate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="242" width="130" height="17" uuid="8254c004-8aae-4013-81b4-840f3e11424a"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<text><![CDATA[Date Of Testing]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="151" y="244" width="390" height="17" uuid="f87eee39-9b47-4c6a-ba8a-7f68180004c1"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[":     "+$F{testing}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="266" width="130" height="17" uuid="3ca83792-c6cc-402b-8ba8-6750266bc7e5"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<text><![CDATA[Age In Days]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="150" y="268" width="390" height="17" uuid="bee01c64-fc87-4549-a2c2-635873590263"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[":     "+$F{testing_days}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="289" width="390" height="17" uuid="fd34cfc0-684c-4b3c-9f84-a74672d9fde5"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[":     "+$F{dimension}+"*"+$F{dimension}+"*"+$F{dimension}+"* MM"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="287" width="130" height="17" uuid="c341ba28-41f9-4cdb-9cd0-85ddfcb872e1"/>
+				<textElement>
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
+				<text><![CDATA[Dimension]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="312" width="520" height="40" uuid="4ee163a4-019b-475f-b945-84f0c202a690"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Compressive strength test on conctete cube specimens has been tested as per The guidelines Of IS 456 : 2000 & IS 516 : 1959 & IS 1199 : 1959 ) and the  Results are tabulated below]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="359" width="60" height="32" uuid="cd5b6e5a-6b7c-4c66-9b55-1e1405ea0b98"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="117" y="359" width="80" height="32" uuid="b49b46c9-615c-49ff-ae0a-3ebff5ca578c"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="363" width="40" height="20" uuid="abe3702c-aff0-4e35-8496-ab5a164879fd"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[S/L No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="365" width="78" height="20" uuid="8f4e3177-bc4e-44e9-ac2e-5a9b970af808"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Cube Weight]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="197" y="359" width="80" height="32" uuid="3957f176-260b-4260-bae0-0bfc9e851b23"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="201" y="365" width="92" height="20" uuid="abeb3237-0fcd-4d46-94a0-44f4b6245b91"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Max Load(KN)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="277" y="359" width="83" height="32" uuid="6fb27c83-a8f0-4ffe-9704-82a394efb088"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="278" y="365" width="111" height="20" uuid="d2ba9d0b-1338-4486-bbfb-13879ea4d4b4"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Density (Kg/CUM)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="360" y="359" width="100" height="32" uuid="60ddfebc-26b8-4b45-bbed-bf8e54797592"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="360" y="360" width="100" height="31" uuid="6fc0bcb8-9409-4dcc-b2d7-615da8bb5b7b"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[  Comp. Strength
+       (N/MM2)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="458" y="359" width="96" height="32" uuid="a73c7ba6-ea8a-48b4-bf91-9f39d9fd4212"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="460" y="360" width="95" height="31" uuid="75b36157-3291-415c-9bc2-2b64a0741844"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Avg Strength
+    (N/MM2)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="56" y="359" width="61" height="32" uuid="85692547-7cc4-41ad-b2f6-2aef3c8ebc95"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="70" y="364" width="40" height="20" uuid="4fe84796-8648-4cfb-af32-8032bbfefe69"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Cube ID]]></text>
+			</staticText>
+			<image>
+				<reportElement x="10" y="3" width="80" height="70" uuid="c55dda61-f270-4763-b8ed-410bf6001611"/>
+				<imageExpression><![CDATA["SaiSurya.PNG"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="170" y="22" width="230" height="1" uuid="5df654af-78c1-430f-98f7-eda4eb054035"/>
+			</line>
+			<staticText>
+				<reportElement x="169" y="28" width="330" height="20" uuid="f2a4fe9a-ea3d-46ca-89fd-7c09779f39c5"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Sy. No 10/1, Thirumenahalli, Yelahanka Hobali,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="46" width="415" height="20" uuid="9daac5de-a886-447f-9311-f1d608af95bf"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Bangalore-560064, E-mail: saisuryaconcrete@gmail.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="0" width="260" height="30" uuid="7948eaac-8e0a-49f6-8f77-bc63310e287e"/>
+				<textElement>
+					<font fontName="SansSerif" size="18" isBold="false"/>
+				</textElement>
+				<text><![CDATA[SAI SURYA CONCRETE]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="69" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="-3" width="554" height="70" uuid="50f43546-e346-4bd0-a51b-2add9f9c3b94"/>
+				<subreportParameter name="tst_id">
+					<subreportParameterExpression><![CDATA[$F{tst_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["PrintCubeTest2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

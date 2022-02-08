@@ -1,0 +1,16 @@
+ <Context path="/RMC" clearReferencesStopThreads="true">
+ <Resource
+    name="jdbc/rmc"
+    auth="Container"
+    type="javax.sql.DataSource"
+    maxActive="100"
+    maxIdle="30"
+    maxWait="10000"
+    removeAbandonedTimeout="60"
+    removeAbandoned="true"
+    driverClassName="com.mysql.jdbc.Driver"
+    url="jdbc:mysql://localhost:3306/vrmc_rmc?autoReconnect=true&amp;useOldAliasMetadataBehavior=true&amp;useSSL=false"
+    username="root"
+    password="root"
+    />
+</Context>

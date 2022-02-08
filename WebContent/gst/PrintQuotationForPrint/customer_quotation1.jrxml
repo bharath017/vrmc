@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="customer_quotation1" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="70df5861-662a-497d-b6a2-d531d547fc22">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<parameter name="quotation_id" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[select ci.grade_price,ci.ggbs_price,
+ci.grade_name,ci.grade_id
+from customer_quotation_item ci
+where  quotation_id= $P{quotation_id}]]>
+	</queryString>
+	<field name="grade_price" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="grade_price"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer_quotation_item"/>
+	</field>
+	<field name="ggbs_price" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="ggbs_price"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer_quotation_item"/>
+	</field>
+	<field name="grade_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="grade_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer_quotation_item"/>
+	</field>
+	<field name="grade_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="grade_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer_quotation_item"/>
+	</field>
+	<variable name="count" class="java.lang.Integer" incrementType="Column" calculation="Count"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<rectangle>
+				<reportElement x="1" y="0" width="71" height="25" uuid="d0497db2-a475-4fad-9f56-f22559b75910"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="72" y="0" width="128" height="25" uuid="73d3e43a-057f-4520-85da-1a4c1e0df5a1"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="200" y="0" width="134" height="25" uuid="ede06e90-add8-4ff1-a86e-eaa0a26963cf"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="334" y="0" width="134" height="25" uuid="c3cbec04-c506-4499-ab00-c31ffabeca65"/>
+			</rectangle>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="114" y="3" width="100" height="20" uuid="f993604b-1556-46f4-bb0e-3307ec8e6486"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{grade_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="248" y="3" width="100" height="20" uuid="5216c3fd-a814-4bb0-a917-3505d18aa473"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{grade_price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="382" y="3" width="100" height="20" uuid="b3b7d306-2c38-4db8-b657-50dff7e898cb"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ggbs_price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="30" y="3" width="40" height="20" uuid="b28a51b0-1f1b-4e2f-8298-3e0b991ad7ec"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

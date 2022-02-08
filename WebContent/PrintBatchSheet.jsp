@@ -1,0 +1,42 @@
+<%@page import="java.sql.Types"%>
+<%@page import="java.sql.CallableStatement"%>
+<%@page import="com.willka.soft.util.DBUtil"%>
+<%@ page trimDirectiveWhitespaces="true" %>
+<%@page import="net.sf.jasperreports.engine.JasperRunManager"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.io.File"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+
+		<%
+            Connection conn = null;
+			CallableStatement cs=null;
+            try {
+               conn = DBUtil.getConnection();
+               int id=Integer.parseInt(request.getParameter("id"));
+         	   cs=conn.prepareCall("call batchsheetsave(?,?)");
+         	   cs.setInt(1, id);
+         	   cs.registerOutParameter(2, Types.VARCHAR);
+         	   cs.execute();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+           try{
+        	   File reportFile = new File(application.getRealPath("PrintCubeTest.jasper"));//your report_name.jasper file
+               Map parameters = new HashMap();
+        	   int id=Integer.parseInt(request.getParameter("id"));
+        	   parameters.put("id", id);
+               byte[] bytes = JasperRunManager.runReportToPdf(reportFile.getPath(), parameters, conn);
+               response.setContentType("application/pdf");
+               response.setContentLength(bytes.length);
+               ServletOutputStream outStream = response.getOutputStream();
+               outStream.write(bytes, 0, bytes.length);
+               outStream.flush();
+               outStream.close();
+           }catch(Exception e){
+        	   e.printStackTrace();
+           }
+        %>

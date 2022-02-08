@@ -1,0 +1,852 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="UniqueInvoicePrint" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="560df9e1-ccbf-45cb-9596-5c0b7d6f5a36">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="vrmc"/>
+	<parameter name="id" class="java.lang.Integer"/>
+	<parameter name="copy" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select i.*,p.product_name,ROUND(i.gross_amount,2) as gross,TRUNCATE(i.net_amount,0) as net,ROUND(i.tax_amount,2) as tax, (SELECT WEEK(invoice_date) - WEEK(DATE_FORMAT(invoice_date, '%Y-%m-01')) + 1) as weeknumber,
+			  ROUND(tax_amount/2,2) as cgst,ROUND(tax_amount/2,2) as sgst, 
+			  (select sum(quantity) from test_dc ii 
+			  where ii.customer_id=i.customer_id and ii.invoice_date=i.invoice_date
+			  and  ii.id<=i.id and ii.site_id=i.site_id and ii.poi_id=i.poi_id and ii.invoice_status='active') as cum_quantity,
+			  (select count(id) from test_dc ii 
+			  where ii.customer_id=i.customer_id and ii.invoice_date=i.invoice_date
+			  and ii.invoice_id<=i.invoice_id and ii.site_id=i.site_id and ii.poi_id=i.poi_id) as cum_count,
+			  c.*,poi.poi_id,TRUNCATE((poi.rate*100)/118,2) as prc,poi.product_id,poi.quantity as gquantity,po.*,pl.plant_address,s.site_address as site_address,DATE_FORMAT(i.invoice_date,'%d/%m/%Y') as realdate
+			  from test_dc i JOIN (plant pl, test_purchase_order po,test_customer c,test_purchase_order_item poi,test_site_detail s,product p)
+			  on i.plant_id=pl.plant_id
+			  and i.customer_id=c.customer_id
+			  and i.poi_id=poi.poi_id
+			  and poi.order_id=po.order_id
+			  and poi.product_id=p.product_id
+			  and i.site_id=s.site_id
+			  where i.id= $P{id}]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="invoice_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="invoice_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="plant_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="plant_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="customer_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="customer_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="site_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="site_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="poi_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="poi_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="invoice_date" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="invoice_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="invoice_time" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="invoice_time"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="quantity" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="quantity"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="rate" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="rate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="gross_amount" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="gross_amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="tax_amount" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="tax_amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="net_amount" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="net_amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="vehicle_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="vehicle_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="pump" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pump"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="driver_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="driver_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="start_year" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="start_year"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="end_year" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="end_year"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="invoice_status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="invoice_status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="timestamp" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="timestamp"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="docket_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="docket_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="km_reading" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="km_reading"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="water_percentage" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.label" value="water_percentage"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="project_block" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="project_block"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="contact_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="contact_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="batch_no" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="batch_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="loaded_quantity" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="loaded_quantity"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="tcs_amount" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="tcs_amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_dc"/>
+	</field>
+	<field name="product_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="product_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="product"/>
+	</field>
+	<field name="gross" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="gross"/>
+	</field>
+	<field name="net" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="net"/>
+	</field>
+	<field name="tax" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="tax"/>
+	</field>
+	<field name="weeknumber" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="weeknumber"/>
+	</field>
+	<field name="cgst" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="cgst"/>
+	</field>
+	<field name="sgst" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="sgst"/>
+	</field>
+	<field name="cum_quantity" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="cum_quantity"/>
+	</field>
+	<field name="cum_count" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="cum_count"/>
+	</field>
+	<field name="customer_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="customer_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_customer"/>
+	</field>
+	<field name="customer_phone" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="customer_phone"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_customer"/>
+	</field>
+	<field name="customer_email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="customer_email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_customer"/>
+	</field>
+	<field name="customer_gstin" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="customer_gstin"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_customer"/>
+	</field>
+	<field name="customer_panno" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="customer_panno"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_customer"/>
+	</field>
+	<field name="customer_address" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="customer_address"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_customer"/>
+	</field>
+	<field name="customer_status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="customer_status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_customer"/>
+	</field>
+	<field name="credit_limit" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="credit_limit"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_customer"/>
+	</field>
+	<field name="business_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="business_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_customer"/>
+	</field>
+	<field name="opening_balance" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="opening_balance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_customer"/>
+	</field>
+	<field name="last_dispatch_date" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="last_dispatch_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_customer"/>
+	</field>
+	<field name="prc" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="prc"/>
+	</field>
+	<field name="product_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="product_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_purchase_order_item"/>
+	</field>
+	<field name="gquantity" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="gquantity"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_purchase_order_item"/>
+	</field>
+	<field name="order_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="order_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_purchase_order"/>
+	</field>
+	<field name="po_date" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="po_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_purchase_order"/>
+	</field>
+	<field name="po_valid_till" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="po_valid_till"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_purchase_order"/>
+	</field>
+	<field name="tax_group" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="tax_group"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_purchase_order"/>
+	</field>
+	<field name="rate_include_tax" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="rate_include_tax"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_purchase_order"/>
+	</field>
+	<field name="status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_purchase_order"/>
+	</field>
+	<field name="po_number" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="po_number"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_purchase_order"/>
+	</field>
+	<field name="gst_percent" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.label" value="gst_percent"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_purchase_order"/>
+	</field>
+	<field name="order_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="order_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_purchase_order"/>
+	</field>
+	<field name="bill_photo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="bill_photo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_purchase_order"/>
+	</field>
+	<field name="credit_days" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="credit_days"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_purchase_order"/>
+	</field>
+	<field name="gst_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="gst_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_purchase_order"/>
+	</field>
+	<field name="site_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="site_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_purchase_order"/>
+	</field>
+	<field name="mp_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="mp_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_purchase_order"/>
+	</field>
+	<field name="plant_address" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="plant_address"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="plant"/>
+	</field>
+	<field name="site_address" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="site_address"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="test_site_detail"/>
+	</field>
+	<field name="realdate" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="realdate"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="446" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="63" width="554" height="36" uuid="b745f954-8653-4739-8eff-204b40e104ae"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="230" y="63" width="216" height="21" uuid="b18dd861-3260-434a-b0e5-b02b290a9005"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[DELIVERY CHALLAN]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="193" width="281" height="100" uuid="3120fa6f-24f8-4fc2-a2e4-31e47fda44ca"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="281" y="193" width="273" height="64" uuid="6c8788e2-ceec-4a30-9dfe-494a2c5f1fe5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="195" width="273" height="16" uuid="03e9a956-7080-4f4b-9209-5a77f860126e"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[Name of Recepient (Billed to) : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="4" y="219" width="266" height="18" uuid="5c12536b-0333-4165-8e5d-b21ef3657ada"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customer_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="5" y="242" width="265" height="44" uuid="b395b1ac-be35-405c-a578-97f82ef0db49"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customer_address}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="287" y="198" width="92" height="16" uuid="47fb4f84-8ed4-490f-b208-cbb931cbd062"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[DC No. : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="287" y="218" width="92" height="16" uuid="b5c9e6c3-44f0-491e-866e-c78652eb666b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[DC Date : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="287" y="238" width="92" height="16" uuid="527be198-271a-47d0-95e6-331f3f598daf"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[DC Time : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="382" y="240" width="100" height="16" uuid="d6bef0de-4189-453b-85dd-7247ba004834"/>
+				<textElement textAlignment="Left">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{invoice_time}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="382" y="219" width="100" height="16" uuid="e1bb79af-e268-4010-8ba7-5f129b74a583"/>
+				<textElement textAlignment="Left">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{realdate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="383" y="198" width="100" height="16" uuid="64323b03-6e99-46ff-93bb-ac12f31bfe6c"/>
+				<textElement textAlignment="Left">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{invoice_id}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="281" y="257" width="273" height="36" uuid="98a056e2-4607-473b-b72c-88eb651f8eb3"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="293" width="281" height="126" uuid="0c8e4930-e604-481f-87ea-940ad981f734"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="4" y="297" width="190" height="16" uuid="88538751-a43b-4c9f-b425-3ee6f00e4608"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[Delivery Address :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="373" width="78" height="16" uuid="2342bf53-a48c-464e-8b9e-5adee8644a56"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[GSTIN NO. :]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="417" width="281" height="29" uuid="ebb81d0f-e199-4b1d-bcc1-85de2841557d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="281" y="293" width="273" height="126" uuid="646472cf-e5ec-49fe-a6df-9d2c0d396f16"/>
+			</rectangle>
+			<textField>
+				<reportElement x="5" y="317" width="270" height="56" uuid="61548bf3-1e61-4f52-99bf-983aa511fa58"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{site_address}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="4" y="421" width="69" height="16" uuid="5af8de93-6b9e-4bba-8db4-626a68f9da30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[Grade : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="85" y="373" width="190" height="16" uuid="75f4f9a2-e4bf-467b-9003-74661e1e2142"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customer_gstin}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="81" width="630" height="11" uuid="7d767322-8d5e-4320-89a3-2aa1b7d41a89"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="6.51"/>
+				</textElement>
+				<text><![CDATA[(Invoice for removal of Excisable goods from factory or warehouse, under Rule 4, 11 & 12BB Central Excise Rules, 2002 and Rule 3(5) & Rule 12 A of Cenvat Credit Rules,2004)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="99" width="554" height="94" uuid="fce2e7d4-8be7-443f-9d90-1d2998633187"/>
+			</rectangle>
+			<textField>
+				<reportElement x="83" y="419" width="100" height="20" uuid="e4560672-8fa9-4c53-b563-990d8f0e9812">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5d03d29d-e6cb-4df0-bb7a-53153027014e"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{product_name}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="281" y="417" width="273" height="29" uuid="bd13cb8d-0e3d-49fd-aba6-a406b150f215"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="284" y="420" width="66" height="16" uuid="0be047a3-fac2-483b-ab73-068c1c7e6a73"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[Quantity : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="360" y="419" width="78" height="20" uuid="2ff7757d-c7ed-46dc-8e1f-d1de6ecc7490">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5d03d29d-e6cb-4df0-bb7a-53153027014e"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="2" y="113" width="109" height="80" uuid="629f8382-fc59-47f1-a7f4-5aa6d7892d8a"/>
+				<imageExpression><![CDATA["vc.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="136" y="105" width="432" height="22" uuid="1f3606ca-0e33-4f56-8268-440a7816e02b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[VENKATESWARA READY MIX CONCRETE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="115" y="129" width="462" height="16" uuid="3ac5902a-1c3a-4aee-bddc-e573cc2815d2"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Unit At. Sy.No 359&360, Thumkunta(Vill.), Shameerpet (Mdl.), Medchal-Mallkargiri (Dist.), 50078]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="113" y="148" width="462" height="16" uuid="cf39bd43-35e2-4c8e-959d-0da684fec44e"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Reg. Off: Plot No. A4, Industrial Estate, Moula-Ali, Medchal-Mallkajgiri (Dist.), Hyderabad - 500040]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="157" y="166" width="385" height="16" uuid="a047bb60-1224-46b3-aa31-b45d12307523"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[E-Mail: readymix@cirmc.in    Mobile No : 9010201246 / 9553611388]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="395" width="92" height="16" uuid="59bd478a-49fb-4da4-95ed-d237c31368a8"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[Vechile No : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="83" y="395" width="148" height="16" uuid="3a7a9afc-fa7f-4fec-ad40-9f24e3a27807">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5d03d29d-e6cb-4df0-bb7a-53153027014e"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vehicle_no}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="284" y="350" width="108" height="16" uuid="ef922993-b713-41d7-92eb-00ae62747f4b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[Cement Grade ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="392" y="350" width="121" height="16" uuid="57b3d6ad-ac1c-4875-b827-bcc4028ebf62">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5d03d29d-e6cb-4df0-bb7a-53153027014e"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[": "+$F{km_reading}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="284" y="374" width="108" height="16" uuid="d7fdfc58-0883-4535-90b4-1ba9f996ab77"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[Cement ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="392" y="374" width="121" height="16" uuid="cc023a7d-4484-4c30-831e-6a2a8bffe340">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5d03d29d-e6cb-4df0-bb7a-53153027014e"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[": "+$F{project_block}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="284" y="396" width="108" height="16" uuid="f3fbd829-b002-4599-9f07-5c9c785cb963"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[Week No. ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="392" y="396" width="121" height="16" uuid="1e66c69c-be64-409a-81e4-5b8262937880">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5d03d29d-e6cb-4df0-bb7a-53153027014e"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[": "+$F{weeknumber}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="284" y="299" width="126" height="16" uuid="d7406f3a-9767-44a6-931c-ea5cf4e18852"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[HSN Comodity ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="392" y="299" width="152" height="16" uuid="c0a4f1f1-75a9-4de6-8709-f4afde79073d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[: Ready Mix Concrete]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="284" y="324" width="92" height="16" uuid="be7510c8-e9c7-415b-b3e2-d52e0618d434"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[HSN Code ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="392" y="325" width="121" height="16" uuid="8c3f567a-74c2-4c80-88f6-306716ee70fa"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[: 3824 50 10]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="294" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="-4" width="281" height="73" uuid="c4399b4a-b9b7-4e6e-8c54-df66b50d2d8e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="281" y="-4" width="273" height="73" uuid="7ab37b0f-5115-45da-b564-0e2ce6f4a8ea"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="4" y="-2" width="133" height="16" uuid="1913739e-29c9-4a1f-bd27-e821473d19ec"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[Mode of Transport   :    ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="15" width="132" height="16" uuid="e82cacb5-b2c3-479e-9110-65bac3a1b8bf"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[Name of Transport  :    ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="33" width="132" height="16" uuid="2293eeaa-ceab-4005-b950-d393a944a88c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[Vehicle No.              :              ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="51" width="132" height="16" uuid="013ab703-8ebd-4332-9f32-b8fda0546725"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[Driver                       :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="284" y="51" width="146" height="16" uuid="b3bf8c96-43c1-4463-a1fb-f072549cf0ec"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[Pump                      :   ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="284" y="33" width="146" height="16" uuid="f06fe110-4311-452f-a21a-f0ae8a77b1e3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[DO / Challen No.     :  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="284" y="15" width="146" height="16" uuid="f15236a0-4bf6-4301-92c0-1f86868b28a6"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[Receiving Station  :  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="284" y="-2" width="146" height="16" uuid="e8671ad8-c461-4d68-9358-761d5e480a75"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[Booking Station     :   ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="360" y="69" width="194" height="17" uuid="a217f11f-33d3-4dde-8db2-90df8011f28c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="180" y="69" width="180" height="17" uuid="6348a1a5-ff0d-4fed-bdfa-aa750305b755"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="69" width="180" height="17" uuid="a90c1615-66ef-4e73-a2c1-08252ffad22c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="86" width="180" height="17" uuid="066408d9-e9b6-4b57-88cf-2938a4b1d147"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="180" y="86" width="180" height="17" uuid="9ef764bb-755e-45ab-9f2c-63c73116f882"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="360" y="86" width="194" height="17" uuid="0be0e0bd-5b54-4a60-a43e-8eb98ba36234"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="24" y="69" width="156" height="16" uuid="3dd9170a-6d66-487e-8233-3fb479f4d1a3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Ordered Qty. (CUM)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="69" width="180" height="16" uuid="e54d22e2-563c-4739-86ac-13f46eb2f359"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Qty. With This load (CUM)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="374" y="69" width="170" height="16" uuid="5d9c0068-f355-4a64-9973-594d450b5c7b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[Total Qty. (CUM)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="138" y="33" width="142" height="16" uuid="26392e1a-ceb7-49dc-8eaf-f8c0952d9b51">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="262a0b36-ef11-49f4-88a9-fbf667a4ca86"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vehicle_no}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="138" y="-1" width="152" height="16" uuid="023f954f-60c3-4931-97c1-24cf0fede819"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Transit Mixer]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="138" y="15" width="152" height="16" uuid="7b8f4bed-e682-4297-bebb-578df7751a88"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[VRMC Transport]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="138" y="52" width="142" height="15" uuid="e5b7a6c7-b248-465e-88c0-5ebe3173be72">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="414da4d6-93cf-40d7-a0fa-1b86ec2a28c9"/>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{driver_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="420" y="-2" width="134" height="16" uuid="4215ebb4-9364-4d64-a609-7e0b13aef91b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[CONCRETE INDIA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="420" y="33" width="132" height="16" uuid="c29e94b7-5e8b-4568-90dc-5dcd2af35032">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5992d232-f3fa-4398-a111-976c42ca2e6c"/>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{po_number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="51" width="132" height="16" uuid="a5d3ba54-b5e1-41aa-b90b-c91739c6d584">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5992d232-f3fa-4398-a111-976c42ca2e6c"/>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pump}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="438" y="86" width="57" height="16" uuid="36641476-b778-4706-bed7-318f4de3128e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="002a5856-c5b1-4b73-a4d0-031368e362a9"/>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cum_quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="62" y="86" width="57" height="16" uuid="33188a40-eebe-4533-9266-fb83b798dfd8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="002a5856-c5b1-4b73-a4d0-031368e362a9"/>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gquantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="249" y="86" width="57" height="16" uuid="bb62c220-f61b-4107-b235-5dced03aa743">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="002a5856-c5b1-4b73-a4d0-031368e362a9"/>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="103" width="554" height="20" uuid="7e416420-9ebc-4d29-bbde-b7527418ba07"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="3" y="105" width="187" height="16" uuid="728c4c00-fafb-45a3-8e4b-292ce54a3a83"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[TERM'S & CONDITION : --]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="122" width="554" height="81" uuid="a69ca6e6-5224-4fa7-a52a-274ca9091ea2"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="3" y="127" width="545" height="73" uuid="8383dd94-206d-4127-acec-0eb5d4388911"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1) Goods Once loaded Cannot beTaken back or exchanged.
+2) This concrete delivery is subject to the terms and conditions of sales shown in our quotation.
+3) Since we are using OPC 53 grade cement, dehydration starts after 5(Five) hours of pouring. There by surface/shrinkage cracks develop. To avoid this contingency, sprinkling of water should be done after 4-5 hours of pouring of concrete till pondingis done.
+4) Adding water in concrete as site is strictly prohibited as it reduced strength of concrete drastically.
+5) In case of any complaint please contact our nodal officer on 9010201246/60]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="203" width="281" height="91" uuid="d07087c2-a96e-4bf8-acb5-4686a5b90262"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="281" y="203" width="273" height="91" uuid="47745d4b-5974-412a-9ef5-9961c262c5b0"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="320" y="273" width="200" height="20" uuid="6a21e737-b63e-41f6-a7cd-d78f2eacdafb"/>
+				<textElement>
+					<font fontName="Arial Black" size="12"/>
+				</textElement>
+				<text><![CDATA[Authorized Singnatory]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="206" width="281" height="20" uuid="f39ab7de-5463-4428-8f6e-dc920fe01a0e"/>
+				<textElement>
+					<font fontName="Arial Black" size="10"/>
+				</textElement>
+				<text><![CDATA[For VENKATESWARA READY MIX CONCRETE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="203" width="263" height="20" uuid="a1a13c23-04be-4cb4-bc1a-990ca7f0930d"/>
+				<textElement>
+					<font fontName="Arial Black" size="11"/>
+				</textElement>
+				<text><![CDATA[Receiver's Name & Signatory]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="273" width="102" height="20" uuid="338eb013-d7b9-48ad-a397-ff294f8a4f96"/>
+				<textElement>
+					<font fontName="Arial Black" size="10"/>
+				</textElement>
+				<text><![CDATA[Contact No : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="194" y="256" width="86" height="15" uuid="4f467871-5aa9-4ec3-8bba-d8d3ddd1e7dd"/>
+				<textElement>
+					<font fontName="Arial Black" size="10"/>
+				</textElement>
+				<text><![CDATA[In Time : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="194" y="273" width="86" height="20" uuid="89e2b340-fc20-46cd-bdd4-0e9efc8de04f"/>
+				<textElement>
+					<font fontName="Arial Black" size="10"/>
+				</textElement>
+				<text><![CDATA[Out Time : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="253" width="102" height="20" uuid="cb3fb657-96ee-41a8-8994-d56a3633f6e9"/>
+				<textElement>
+					<font fontName="Arial Black" size="10"/>
+				</textElement>
+				<text><![CDATA[Name : ]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

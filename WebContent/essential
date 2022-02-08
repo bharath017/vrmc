@@ -1,0 +1,80 @@
+select m1.*,DATE_FORMAT(m1.date,'%d/%m/%Y') as realdate
+ from (select t.transaction_id as id,t.transaction_amount as amount,t.transaction_date as date,
+		t.transaction_type as type,t.remark,b.bank_name,g.group_name
+		from bank_transaction t LEFT JOIN (bank_detail b,business_group g)
+		ON t.bank_detail_id=b.bank_detail_id
+		and b.business_id=g.business_id
+		where t.transaction_date between ? and ?
+		and t.business_id like if(0=?,'%%',?)
+		and t.bank_detail_id like if(0=?,'%%'?)
+		
+		UNION ALL 
+		
+		select p.payment_id as id,p.payment_amount as amount,p.payment_date as date,
+		cuspay as type,CONCAT('Payment Received From ',c.customer_name,' By ',p.payment_mode) as remark,b.bank_name,g.group_name
+		from customer_payment p LEFT JOIN (customer c,bank_detail b,business_group g)
+		ON p.customer_id=c.customer_id
+		and p.bank_detail_id=b.bank_detail_id
+		and c.business_id=g.business_id
+		where p.payment_date between ? and ?
+		and c.business_id like  if(0=?,'%%',?)
+		and p.bank_detail_id like if(0=?,'%%'?)
+		
+		UNION ALL
+		
+		select payment_id as id,p.payment_amount as amount,p.payment_date as date,
+		suppay as type,CONCAT('Paid to Vendor ', s.supplier_name, ' by ', p.payment_mode) as remark,b.bank_name,g.group_name
+		from make_payment p LEFT JOIN (supplier s,bank_detail b,business_group g)
+		ON p.supplier_id=s.supplier_id 
+		and p.bank_detail_id=b.bank_detail_id
+		and p.business_id=g.business_id
+		where p.payment_date between ? and ?
+		and p.business_id like if(?=0,'%%',?)
+		and p.bank_detail_id like if(0=?,'%%'?)
+	) as m1
+order by m1.date desc
+limit ?,?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+select m1.*
+ from (select count(t.transaction_id) as tcount
+		where t.transaction_date between ? and ?
+		and t.business_id like if(0=?,'%%',?)
+		and t.bank_detail_id like if(0=?,'%%'?)
+		
+		UNION ALL 
+		
+		select count(payment_id) as pcount
+		from customer_payment p LEFT JOIN (customer c)
+		ON p.customer_id=c.customer_id
+		where p.payment_date between ? and ?
+		and c.business_id like  if(0=?,'%%',?)
+		and p.bank_detail_id like if(0=?,'%%'?)
+		
+		UNION ALL
+		
+		select count(payment_id) 
+		from make_payment p LEFT JOIN (supplier s)
+		ON p.supplier_id=s.supplier_id 
+		where p.payment_date between ? and ?
+		and s.business_id like if(?=0,'%%',?)
+		and p.bank_detail_id like if(0=?,'%%'?)
+	) as m1
+order by m1.date desc
+limit ?,?
